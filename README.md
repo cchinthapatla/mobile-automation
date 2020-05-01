@@ -3,12 +3,17 @@ Automation Test Framework for Mobile Apps usin Appium-java (Android and iOS)
 
 Framework Description:
 
-The framework which I followed is 'TestNG Page Object Model'. Below is the brief description on how this framework works:
+The framework which I followed is 'TestNG Page Factory Model'. Below is the brief description on how this framework works:
 >	Each page is defined as its own class.
+
 >	Actions (including navigation) are represented as functions for a class.
+
 >	Tests only talk to the page objects.
+
 >	Page objects only talk to the driver.
+
 >	Elements on the page are stored as variables for the page object
+
 >	Class Inheritance can be used to define functionality to a set of pages.
 
 
