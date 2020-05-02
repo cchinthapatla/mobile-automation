@@ -19,70 +19,140 @@ import utilities.ConfigFilesUtility;
 import utilities.MobileBase;
 
 public class MobileTest extends MobileBase {
+
 	ExtentReports report;
 	ExtentTest test;
 	ConfigFilesUtility configFileObj;
 	private Logger logger;
 
+	/**
+	 * Constructor
+	 * 
+	 * @throws Exception
+	 */
 	public MobileTest() throws Exception {
 		PropertyConfigurator.configure("log4j.properties");
 		logger = Logger.getLogger(MobileTest.class);
 		configFileObj = new ConfigFilesUtility();
 		configFileObj.loadPropertyFile("MobileTest.properties");
-		report = new ExtentReports(projectPath + File.separator + "MobileReports" + File.separator + "ExtentReportResults.html");
+		report = new ExtentReports(
+				projectPath + File.separator + "MobileReports" + File.separator + "ExtentReportResults.html");
 	}
+/**
+ * 
+ * Launch the App
+ * @throws Exception
+ */
 	@BeforeClass
 	public void launchMobileApp() throws Exception {
-		mobileAppLaunch(projectPath + File.separator + "mobile" + File.separator + "apk" + File.separator + "Amazon_shopping.apk", "1215fcadde7a1104");
-		logger.info("App is launched");
+		try {
+			mobileAppLaunch(projectPath + File.separator + "mobile" + File.separator + "apk" + File.separator
+					+ "Amazon_shopping.apk", configFileObj.getProperty("deviceUDID"));
+			logger.info("App is launched");
+		} catch (Exception ex) {
+			logger.info("Exception is : " + ex);
+		}
 	}
-	@Test(priority=1)
+
+	/**
+	 * 
+	 * Login into App 
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 1)
 	public void loginTest() throws Exception {
-		test = report.startTest("LoginTest");
-		LoginScreen loginScreen = new LoginScreen(appiumDriver);
-		loginScreen.tapSignInButton();
-		logger.info("Tapped on Sign in Button");
-		test.log(LogStatus.INFO, "Tapped on Signin Button");
-		loginScreen.setEmailorMobileField("chandrachinthapatla@gmail.com");
-		logger.info("Filled Email Field : " );
-		test.log(LogStatus.INFO, "Filled Email Field :");
-		loginScreen.tapContinueButton();
-		logger.info("Tapped on Continue Button");
-		test.log(LogStatus.INFO, "Tapped on Continue Button");
-		loginScreen.setPasswordField("Sekhar@123");
-		logger.info("Filled Password Field : ******" );
-		test.log(LogStatus.INFO, "Filled Password Field : ******");
-		loginScreen.tapLoginButton();
-		logger.info("Tapped on Login Button");
-		test.log(LogStatus.INFO, "Tapped on Login Button");
+		try {
+			test = report.startTest("LoginTest");
+			LoginScreen loginScreen = new LoginScreen(appiumDriver);
+			loginScreen.tapSignInButton();
+			logger.info("Tapped on Sign in Button");
+			test.log(LogStatus.INFO, "Tapped on Signin Button");
+			waitForElement();
+			loginScreen.setEmailorMobileField(configFileObj.getProperty("username"));
+			logger.info("Filled Email Field : " + configFileObj.getProperty("username"));
+			test.log(LogStatus.INFO, "Filled Email Field : " + configFileObj.getProperty("username"));
+			loginScreen.tapContinueButton();
+			logger.info("Tapped on Continue Button");
+			test.log(LogStatus.INFO, "Tapped on Continue Button");
+			loginScreen.setPasswordField(configFileObj.getProperty("password"));
+			logger.info("Filled Password Field : ******");
+			test.log(LogStatus.INFO, "Filled Password Field : ******");
+			loginScreen.tapLoginButton();
+			logger.info("Tapped on Login Button");
+			test.log(LogStatus.INFO, "Tapped on Login Button");
+		} catch (Exception ex) {
+			logger.info("Exception is : " + ex);
+		}
 	}
-	@Test(priority=2)
+
+	/**
+	 * Home Page Test
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 2)
 	public void homeTest() throws Exception {
-		test = report.startTest("HomeTest");
-		HomeScreen homeScreen = new HomeScreen(appiumDriver);
-		homeScreen.tapCancelButton();
-		logger.info("Tapped on Cancel Button");
-		test.log(LogStatus.INFO, "Tapped on Cancel Button");
-		homeScreen.setsearchField("65-inch TV");
-		logger.info("Filled Search Field : ******" );
-		test.log(LogStatus.INFO, "Filled Search Field : ******");
-		homeScreen.tapsearchItem();
+		try {
+			test = report.startTest("HomeTest");
+			HomeScreen homeScreen = new HomeScreen(appiumDriver);
+			boolean isLang = homeScreen.tapLanguageButton();
+			if (isLang) {
+				logger.info("Tapped on English Language Button");
+				test.log(LogStatus.INFO, "Tapped on English Language Button");
+			}
+			boolean isCancel = homeScreen.tapsaveChangesButton();
+			if (isCancel) {
+				logger.info("Tapped on Save Changes Button");
+				test.log(LogStatus.INFO, "Tapped on saveChanges Button");
+			}
+			waitForElement();
+			boolean isElement = homeScreen.loginVerification();
+			if (isElement) {
+				logger.info("User is successfully logged into app");
+				test.log(LogStatus.PASS, "User is successfully logged into app");
+			}
+			homeScreen.setsearchField(configFileObj.getProperty("searchdata"));
+			waitForElement();
+			homeScreen.setsearchField1(configFileObj.getProperty("searchdata"));
+			logger.info("Filled Search Field : " + configFileObj.getProperty("searchdata"));
+			test.log(LogStatus.INFO, "Filled Search Field : " + configFileObj.getProperty("searchdata"));
+			homeScreen.tapsearchItem();
+		} catch (Exception ex) {
+			logger.info("Exception is : " + ex);
+		}
 	}
-	@Test(priority=3)
+
+	/**
+	 * 
+	 * Search Results and add item to wish list
+	 * 
+	 * @throws Exception
+	 */
+	@Test(priority = 3)
 	public void searchTest() throws Exception {
-		test = report.startTest("SearchTest");
-		SearchScreen searchScreen = new SearchScreen(appiumDriver);
-		String itemStatus = searchScreen.getItemStatus();
-		logger.info("Item Status is: " + itemStatus);
-		test.log(LogStatus.INFO, "Item Status is : " + itemStatus);
-		searchScreen.tapWishListButton();
-		logger.info("Tapped on Wish List Button");
-		test.log(LogStatus.INFO, "Tapped on Wish List Button");
+		try {
+			test = report.startTest("SearchTest");
+			SearchScreen searchScreen = new SearchScreen(appiumDriver);
+			int status = searchScreen.pickRandomItem();
+			logger.info("Picked Item : " + (status == 0 ? "None" : status));
+			test.log(LogStatus.INFO, "Picked Item : " + (status == 0 ? "None" : status));
+			searchScreen.tapWishListButton();
+			logger.info("Tapped on Wish List Button");
+			test.log(LogStatus.INFO, "Tapped on Wish List Button");
+		} catch (Exception ex) {
+			logger.info("Exception is : " + ex);
+		}
 	}
+
 	@AfterClass
 	public void tearDown() {
-		appiumDriver.quit();
-		report.endTest(test);
-		report.flush();
+		try {
+			appiumDriver.quit();
+			report.endTest(test);
+			report.flush();
+		} catch (Exception ex) {
+			logger.info("Exception is : " + ex);
+		}
 	}
 }

@@ -19,13 +19,20 @@ Class Inheritance can be used to define functionality to a set of pages.
 
  Prerequisites:
  
-•	Java should be installed and path should be in environment variables
+•	Java should be installed and path should be in environment variables.
+ 
+•	Android sdk should be installed and path should be in environmental variables.
 
-•	Maven  should be installed path should be in environment variables
+•	tools and platform tools path should be added to environmental variables path.
 
-•	TestNG should be installed in execution IDE (Eclipse is suggestible)
+•	Appium server should be installed properly.
 
-•	Import the framework to available IDE (Eclipse is suggestible)
+•	Maven should be installed path should be in environment variables.
+
+•	TestNG should be installed in execution IDE (Eclipse is suggestible).
+
+•	Import the framework to available IDE (Eclipse is suggestible).
+
 
  
 Below are the steps to setup project properties:  
@@ -36,3 +43,21 @@ Click on Java Build Path -> Remove Existing JRE -> Add Library -> Select JRE Sys
 Click on Java Compiler -> Select Compiler Compliance Level -> Apply.
 
 Click on Project Facets -> Select Java Version -> Select Runtimes -> Apply -> Apply and Close 
+
+
+
+Update Login Credentials and Device UDID
+
+Navigate to MobileTest.properties(ConfigFiles/MobileTest.properties), add the login(username and password values) credentials accordingly.
+
+update device udid(deviceUDID value), we can get the device udid by a command "adb devices" after connect the real device/emulator to your system.
+
+
+
+To run TestNG suite file:
+ 
+Right click on testng.xml file and Run as TestNG Suite.
+
+We can run individual test classes as TestNG classes.
+
+Note: Testcase is available in MobileTest.java in testclasses(src/test/java/testclasses) package.
