@@ -1,5 +1,5 @@
 # mobile-automation
-Automation Test Framework for Mobile Apps usin Appium-java (Android and iOS) 
+Automation Test Framework for Mobile Apps using Appium-java (Android and iOS) 
 
 Framework Description:
 
