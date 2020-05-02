@@ -17,7 +17,7 @@ Elements on the page are stored as variables for the page object
 Class Inheritance can be used to define functionality to a set of pages.
 
 
- Prerequisites:
+ # Prerequisites:
  
 •	Java should be installed and path should be in environment variables.
  
@@ -35,7 +35,7 @@ Class Inheritance can be used to define functionality to a set of pages.
 
 
  
-Below are the steps to setup project properties:  
+# Below are the steps to setup project properties:  
 
 ---- Select Framework -> Right click -> Click on Properties 
 Click on Java Build Path -> Remove Existing JRE -> Add Library -> Select JRE System Library -> Next -> Click and Select Alternative JRE -> Finish -> Apply. 
@@ -46,7 +46,7 @@ Click on Project Facets -> Select Java Version -> Select Runtimes -> Apply -> Ap
 
 
 
-Update Login Credentials and Device UDID
+# Update Login Credentials and Device UDID
 
 Navigate to MobileTest.properties(ConfigFiles/MobileTest.properties), add the login(username and password values) credentials accordingly.
 
@@ -54,7 +54,7 @@ update device udid(deviceUDID value), we can get the device udid by a command "a
 
 
 
-To run TestNG suite file:
+# To run TestNG suite file:
  
 Right click on testng.xml file and Run as TestNG Suite.
 
