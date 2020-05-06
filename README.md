@@ -1,5 +1,5 @@
 # mobile-automation
-Automation Test Framework for Mobile Apps using Appium-java (Android and iOS) 
+Automation Test Framework for Mobile Apps usin Appium-java (Android and iOS) 
 
 Framework Description:
 
@@ -17,7 +17,7 @@ Elements on the page are stored as variables for the page object
 Class Inheritance can be used to define functionality to a set of pages.
 
 
- # Prerequisites:
+ Prerequisites:
  
 •	Java should be installed and path should be in environment variables.
  
@@ -35,7 +35,7 @@ Class Inheritance can be used to define functionality to a set of pages.
 
 
  
-# Below are the steps to setup project properties:  
+Below are the steps to setup project properties:  
 
 ---- Select Framework -> Right click -> Click on Properties 
 Click on Java Build Path -> Remove Existing JRE -> Add Library -> Select JRE System Library -> Next -> Click and Select Alternative JRE -> Finish -> Apply. 
@@ -46,15 +46,15 @@ Click on Project Facets -> Select Java Version -> Select Runtimes -> Apply -> Ap
 
 
 
-# Update Login Credentials and Device UDID
+Update Login Credentials and Device UDID
 
-Navigate to MobileTest.properties(ConfigFiles/MobileTest.properties), add the login(username and password values) credentials accordingly.
+Navigate to testdata.xlsx(testdata/testdata.xlsx), add the login(device udid, username and password values) credentials accordingly.
 
 update device udid(deviceUDID value), we can get the device udid by a command "adb devices" after connect the real device/emulator to your system.
 
 
 
-# To run TestNG suite file:
+To run TestNG suite file:
  
 Right click on testng.xml file and Run as TestNG Suite.
 

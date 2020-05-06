@@ -26,8 +26,9 @@ public class MobileBase {
 
 	public void mobileAppLaunch(String appPath, String deviceUDID) throws Exception {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "devicename");		
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "platformName");	
+		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android");		
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");	
+		
 		capabilities.setCapability(MobileCapabilityType.UDID, deviceUDID);
 		capabilities.setCapability(MobileCapabilityType.FULL_RESET,  true);	
 		capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "360");
@@ -48,7 +49,10 @@ public class MobileBase {
 	}
 	
 	public void setInputBox(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds, String inputValue) {
+		waitForElement();
 		waitForExpectedElement(appiumDriver, element, timeOutInSeconds);
+		waitForElement();
+		
 		element.sendKeys(inputValue);
 	}
 	
@@ -95,8 +99,12 @@ public class MobileBase {
 	}
 	
 	//Don't use if not required 
-	public void waitForElement() throws Exception {
-		Thread.sleep(1000);
+	public void waitForElement() {
+		try {
+		Thread.sleep(1500);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 
