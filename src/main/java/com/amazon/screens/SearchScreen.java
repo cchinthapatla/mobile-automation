@@ -5,21 +5,16 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 
 import com.amazon.base.MobileBase;
 import com.amazon.utilities.AppiumWrapper;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class SearchScreen extends MobileBase {
 	private AppiumWrapper appiumWrapper;
-	public SearchScreen(AppiumDriver<MobileElement> appiumDriver) {
-		this.appiumDriver = appiumDriver;
+	public SearchScreen() {
 		appiumWrapper = new AppiumWrapper();
-		PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);
 	}
 
 	@FindBy(how = How.XPATH, using = "//android.view.View[@resource-id='bylineInfo']")
@@ -59,7 +54,7 @@ public class SearchScreen extends MobileBase {
 				MobileElement listItem = getItems.get(dynamicSize);
 				for (int i = 0; i < 4; i++) {
 					if (listItem.isDisplayed()) {
-						appiumWrapper.taponElement(appiumDriver, listItem, 120);
+						appiumWrapper.taponElement(listItem, 120);
 						break;
 					} else {
 						appiumWrapper.scrollDown();
@@ -78,7 +73,7 @@ public class SearchScreen extends MobileBase {
 	 * 
 	 */
 	public String getItemName() {
-		return appiumWrapper.getTextValue(appiumDriver, itemStatus, 60);
+		return appiumWrapper.getTextValue(itemStatus, 60);
 	}
 
 	/**
@@ -88,7 +83,7 @@ public class SearchScreen extends MobileBase {
 	 * @return
 	 */
 	public String getItemPrice() {
-		return appiumWrapper.getTextValue(appiumDriver, itemPrice, 60);
+		return appiumWrapper.getTextValue(itemPrice, 60);
 	}
 
 	/**
@@ -97,7 +92,7 @@ public class SearchScreen extends MobileBase {
 	 */
 	public void addToCart() {
 		appiumWrapper.scrollDown();
-		appiumWrapper.taponElement(appiumDriver, addToCart, 120);
+		appiumWrapper.taponElement(addToCart, 120);
 	}
 
 	/**
@@ -106,7 +101,7 @@ public class SearchScreen extends MobileBase {
 	 */
 	public void cartView() {
 		appiumWrapper.scrollDown();
-		appiumWrapper.taponElement(appiumDriver, cart, 120);
+		appiumWrapper.taponElement(cart, 120);
 	}
 
 	/**
@@ -115,7 +110,7 @@ public class SearchScreen extends MobileBase {
 	 * @return
 	 */
 	public String verifyingIncartAddedItem() {
-		return appiumWrapper.getTextValue(appiumDriver, verifyingIncartAddedItem, 60);
+		return appiumWrapper.getTextValue(verifyingIncartAddedItem, 60);
 	}
 
 	/**
@@ -124,7 +119,7 @@ public class SearchScreen extends MobileBase {
 	 * @return
 	 */
 	public String verifyingIncartAddedItemPrice() {
-		return appiumWrapper.getTextValue(appiumDriver, verifyingIncartAddedItemPrice, 60);
+		return appiumWrapper.getTextValue(verifyingIncartAddedItemPrice, 60);
 	}
 
 }

@@ -4,7 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.amazon.base.MobileBase;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -19,7 +18,7 @@ public class AppiumWrapper extends MobileBase{
 	 * @param timeOutInSeconds
 	 * @return
 	 */
-	public static WebElement waitForExpectedElement(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds) {
+	public WebElement waitForExpectedElement(MobileElement element, long timeOutInSeconds) {
 		WebDriverWait wait = new WebDriverWait(appiumDriver, timeOutInSeconds);
 		return wait.until(ExpectedConditions.visibilityOf(element));
 	}
@@ -32,9 +31,9 @@ public class AppiumWrapper extends MobileBase{
 	 * @param timeOutInSeconds
 	 * @param inputValue
 	 */
-	public void setInputBox(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds, String inputValue) {
+	public void setInputBox(MobileElement element, long timeOutInSeconds, String inputValue) {
 		waitForElement();
-		waitForExpectedElement(appiumDriver, element, timeOutInSeconds);
+		waitForExpectedElement(element, timeOutInSeconds);
 		waitForElement();
 		
 		element.sendKeys(inputValue);
@@ -48,8 +47,8 @@ public class AppiumWrapper extends MobileBase{
 	 * @param timeOutInSeconds
 	 * @param inputValue
 	 */
-	public void setInputClickBox(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds, String inputValue) {
-		waitForExpectedElement(appiumDriver, element, timeOutInSeconds);
+	public void setInputClickBox( MobileElement element, long timeOutInSeconds, String inputValue) {
+		waitForExpectedElement(element, timeOutInSeconds);
 		element.click();
 		element.sendKeys(inputValue);
 	}
@@ -61,8 +60,8 @@ public class AppiumWrapper extends MobileBase{
 	 * @param element
 	 * @param timeOutInSeconds
 	 */
-	public void taponElement(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds) {
-		waitForExpectedElement(appiumDriver, element, timeOutInSeconds);
+	public void taponElement( MobileElement element, long timeOutInSeconds) {
+		waitForExpectedElement(element, timeOutInSeconds);
 		 element.click();
 	}
 	
@@ -74,9 +73,9 @@ public class AppiumWrapper extends MobileBase{
 	 * @param timeOutInSeconds
 	 * @return
 	 */
-	public boolean taponIfElementDisplayed(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds) {
+	public boolean taponIfElementDisplayed(MobileElement element, long timeOutInSeconds) {
 		try {
-			WebElement ele = waitForExpectedElement(appiumDriver, element, timeOutInSeconds);
+			WebElement ele = waitForExpectedElement(element, timeOutInSeconds);
 			if (ele.isDisplayed()) {
 				ele.click();
 				return true;
@@ -95,9 +94,9 @@ public class AppiumWrapper extends MobileBase{
 	 * @param timeOutInSeconds
 	 * @return
 	 */
-	public boolean elementDisplayed(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds) {
+	public boolean elementDisplayed( MobileElement element, long timeOutInSeconds) {
 		try {
-			WebElement ele = waitForExpectedElement(appiumDriver, element, timeOutInSeconds);
+			WebElement ele = waitForExpectedElement(element, timeOutInSeconds);
 			if (ele.isDisplayed()) {
 				return true;
 			}
@@ -123,8 +122,8 @@ public class AppiumWrapper extends MobileBase{
 	 * @param timeOutInSeconds
 	 * @return
 	 */
-	public String getTextValue(AppiumDriver<MobileElement> appiumDriver, MobileElement element, long timeOutInSeconds) {
-		WebElement ele = waitForExpectedElement(appiumDriver, element, timeOutInSeconds);
+	public String getTextValue( MobileElement element, long timeOutInSeconds) {
+		WebElement ele = waitForExpectedElement(element, timeOutInSeconds);
 		String textValue = ele.getText();
 		return textValue;
 	}

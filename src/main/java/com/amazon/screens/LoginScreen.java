@@ -2,21 +2,16 @@ package com.amazon.screens;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.support.PageFactory;
-
 import com.amazon.base.MobileBase;
 import com.amazon.utilities.AppiumWrapper;
+
+import io.appium.java_client.MobileElement;
 
 public class LoginScreen extends MobileBase {
 	private AppiumWrapper appiumWrapper;
 	
-	public LoginScreen(AppiumDriver<MobileElement> appiumDriver) {
-		this.appiumDriver = appiumDriver;
+	public LoginScreen() {
 		appiumWrapper = new AppiumWrapper();
-		PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);
 	}
 	
 	@FindBy(how = How.ID, using = "com.amazon.mShop.android.shopping:id/sign_in_button")	
@@ -35,7 +30,7 @@ public class LoginScreen extends MobileBase {
 	 * Method for signin button
 	 */
 	public void tapSignInButton() {
-		appiumWrapper.taponElement(appiumDriver, signInButton, 120);		
+		appiumWrapper.taponElement(signInButton, 120);		
 	}
 	
 	/**
@@ -43,7 +38,7 @@ public class LoginScreen extends MobileBase {
 	 * Method for Email field  
 	 */
 	public void setEmailorMobileField(String emailORmobileNumber) {
-		appiumWrapper.setInputBox(appiumDriver, emailORmobileField, 120, emailORmobileNumber);		
+		appiumWrapper.setInputBox(emailORmobileField, 120, emailORmobileNumber);		
 	}
 	
 	/**
@@ -51,7 +46,7 @@ public class LoginScreen extends MobileBase {
 	 * Method for continue button
 	 */
 	public void tapContinueButton() {
-		appiumWrapper.taponElement(appiumDriver, continueButton, 120);		
+		appiumWrapper.taponElement(continueButton, 120);		
 	}
 	
 	/**
@@ -59,7 +54,7 @@ public class LoginScreen extends MobileBase {
 	 * Method for password field
 	 */
 	public void setPasswordField(String password) {
-		appiumWrapper.setInputBox(appiumDriver, passwordField, 120, password);		
+		appiumWrapper.setInputBox(passwordField, 120, password);		
 	}
 	
 	/**
@@ -67,6 +62,6 @@ public class LoginScreen extends MobileBase {
 	 * Method for Login Button
 	 */
 	public void tapLoginButton() {
-		appiumWrapper.taponElement(appiumDriver, loginButton, 120);		
+		appiumWrapper.taponElement(loginButton, 120);		
 	}
 }

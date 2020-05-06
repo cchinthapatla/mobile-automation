@@ -4,11 +4,12 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.ScreenOrientation;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.amazon.base.MobileBase;
+import com.amazon.drivermanager.DriverManager;
 import com.amazon.screens.HomeScreen;
 import com.amazon.screens.LoginScreen;
 import com.amazon.screens.SearchScreen;
@@ -18,7 +19,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class MobileTest extends MobileBase {
+public class MobileTest extends DriverManager{
  private AppiumWrapper appiumWrapper;
 	ExtentReports report;
 	ExtentTest test;
@@ -53,7 +54,7 @@ public class MobileTest extends MobileBase {
 			String udid = excelObj.getStringCelldata(1, 1);
 			mobileAppLaunch(projectPath + File.separator + "mobile" + File.separator + "apk" + File.separator
 					+ "Amazon_shopping.apk", udid);
-			logger.info("App is launched");
+			getDriver().rotate(ScreenOrientation.LANDSCAPE);
 		} catch (Exception ex) {
 			logger.info("Exception is : " + ex);
 		}
@@ -69,23 +70,17 @@ public class MobileTest extends MobileBase {
 	public void loginTest() throws Exception {
 		try {
 			test = report.startTest("LoginTest");
-			LoginScreen loginScreen = new LoginScreen(appiumDriver);
+			LoginScreen loginScreen = new LoginScreen();
 			loginScreen.tapSignInButton();
-			logger.info("Tapped on Sign in Button");
 			test.log(LogStatus.INFO, "Tapped on Signin Button");
 			appiumWrapper.waitForElement();
 			String userName = excelObj.getStringCelldata(1, 2);
-			loginScreen.setEmailorMobileField(userName);
-			logger.info("Filled Email Field : " + userName);
 			test.log(LogStatus.INFO, "Filled Email Field : " + userName);
 			loginScreen.tapContinueButton();
-			logger.info("Tapped on Continue Button");
 			test.log(LogStatus.INFO, "Tapped on Continue Button");
 			loginScreen.setPasswordField(excelObj.getStringCelldata(1, 3));
-			logger.info("Filled Password Field : ******");
 			test.log(LogStatus.INFO, "Filled Password Field : ******");
 			loginScreen.tapLoginButton();
-			logger.info("Tapped on Login Button");
 			test.log(LogStatus.INFO, "Tapped on Login Button");
 		} catch (Exception ex) {
 			logger.info("Exception is : " + ex);
@@ -101,28 +96,24 @@ public class MobileTest extends MobileBase {
 	public void homeTest() throws Exception {
 		try {
 			test = report.startTest("HomeTest");
-			HomeScreen homeScreen = new HomeScreen(appiumDriver);
+			HomeScreen homeScreen = new HomeScreen();
 			boolean isLang = homeScreen.tapLanguageButton();
 			if (isLang) {
-				logger.info("Tapped on English Language Button");
 				test.log(LogStatus.INFO, "Tapped on English Language Button");
 			}
 			boolean isCancel = homeScreen.tapsaveChangesButton();
 			if (isCancel) {
-				logger.info("Tapped on Save Changes Button");
 				test.log(LogStatus.INFO, "Tapped on saveChanges Button");
 			}
 			appiumWrapper.waitForElement();
 			boolean isElement = homeScreen.loginVerification();
 			if (isElement) {
-				logger.info("User is successfully logged into app");
 				test.log(LogStatus.PASS, "User is successfully logged into app");
 			}
 			String searchData = excelObj.getStringCelldata(1, 0);
 			homeScreen.setsearchField(searchData);
 			appiumWrapper.waitForElement();
 			homeScreen.setsearchField1(searchData);
-			logger.info("Filled Search Field : " + searchData);
 			test.log(LogStatus.INFO, "Filled Search Field : " + searchData);
 			appiumWrapper.waitForElement();
 			homeScreen.tapsearchItem();
@@ -141,36 +132,27 @@ public class MobileTest extends MobileBase {
 	public void searchTest() throws Exception {
 		try {
 			test = report.startTest("SearchTest");
-			SearchScreen searchScreen = new SearchScreen(appiumDriver);
+			SearchScreen searchScreen = new SearchScreen();
 			int status = searchScreen.pickRandomItem();
-			logger.info("Picked Item : " + (status == 0 ? "None" : status));
 			test.log(LogStatus.INFO, "Picked Item : " + (status == 0 ? "None" : status));
 			String itemName = searchScreen.getItemName();
-			logger.info("Item Name: " + itemName);
 			test.log(LogStatus.INFO, "Item Name: " + itemName);
 			String itemPrice = searchScreen.getItemPrice();
-			logger.info("Item Price: " + itemPrice);
 			test.log(LogStatus.INFO, "Item Price: " + itemPrice);
 			searchScreen.addToCart();
-			logger.info("Tapped on Addd to Cart Button");
 			test.log(LogStatus.INFO, "Tapped on Addd to Cart Button");
 			searchScreen.cartView();
-			logger.info("Tapped on Cart Button");
 			test.log(LogStatus.INFO, "Tapped on Cart Button");
 			String addedItemInCartName = searchScreen.verifyingIncartAddedItem();
 			if (itemName.contains(addedItemInCartName)) {
-				logger.info("Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
 				test.log(LogStatus.PASS, "Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
 			}else {
-				logger.info("Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
 				test.log(LogStatus.PASS, "Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
 			}
 			String addedItemInCartPrice = searchScreen.verifyingIncartAddedItemPrice();
 			if (itemPrice.contains(addedItemInCartPrice)) {
-				logger.info("Cart Item Price" + addedItemInCartPrice);
 				test.log(LogStatus.FAIL, "Cart Item Price :" + addedItemInCartPrice);
 			}else {
-				logger.info("Cart Item Price" + addedItemInCartPrice);
 				test.log(LogStatus.FAIL, "Cart Item Price :" + addedItemInCartPrice);
 			}
 		} catch (Exception ex) {
@@ -181,7 +163,7 @@ public class MobileTest extends MobileBase {
 	@AfterClass
 	public void tearDown() {
 		try {
-			appiumDriver.quit();
+			getDriver().quit();
 			report.endTest(test);
 			report.flush();
 		} catch (Exception ex) {

@@ -2,21 +2,16 @@ package com.amazon.screens;
 
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 
 import com.amazon.base.MobileBase;
 import com.amazon.utilities.AppiumWrapper;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class HomeScreen extends MobileBase {
 	private AppiumWrapper appiumWrapper;
-	public HomeScreen(AppiumDriver<MobileElement> appiumDriver) {
-		this.appiumDriver = appiumDriver;
+	public HomeScreen() {
 		appiumWrapper = new AppiumWrapper();
-		PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);
 	}
 	@FindBy(how = How.XPATH, using = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.RelativeLayout[2]/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ViewAnimator/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.app.Dialog/android.view.View[3]/android.view.View/android.view.View/android.view.View[5]/android.view.View/android.widget.RadioButton")	
 	private MobileElement languageButton;
@@ -34,7 +29,7 @@ public class HomeScreen extends MobileBase {
 	 * Method for Language 
 	 */
 	public boolean tapLanguageButton() {
-		return appiumWrapper.taponIfElementDisplayed(appiumDriver, languageButton, 30);
+		return appiumWrapper.taponIfElementDisplayed(languageButton, 30);
 	}
 	
 	/**
@@ -42,7 +37,7 @@ public class HomeScreen extends MobileBase {
 	 * Method for Save Changes
 	 */
 	public boolean tapsaveChangesButton() {
-		return appiumWrapper.taponIfElementDisplayed(appiumDriver, saveChangesButton, 30);
+		return appiumWrapper.taponIfElementDisplayed(saveChangesButton, 30);
 	} 
 	
 	/**
@@ -53,7 +48,7 @@ public class HomeScreen extends MobileBase {
 		searchField.click();
 	}
 	public boolean loginVerification() {
-		return appiumWrapper.elementDisplayed(appiumDriver, searchField, 120);
+		return appiumWrapper.elementDisplayed(searchField, 120);
 	}
 	
 	/**
@@ -61,7 +56,7 @@ public class HomeScreen extends MobileBase {
 	 * Method to enter search data in search field
 	 */
 	public void setsearchField1(String searchValue) {
-		appiumWrapper.setInputBox(appiumDriver, searchField1, 120, searchValue);
+		appiumWrapper.setInputBox(searchField1, 120, searchValue);
 	}
 	
 	/**
@@ -69,6 +64,6 @@ public class HomeScreen extends MobileBase {
 	 * Method for search item
 	 */
 	public void tapsearchItem() {
-		appiumWrapper.taponElement(appiumDriver, searchItem, 120);		
+		appiumWrapper.taponElement(searchItem, 120);		
 	}
 }
