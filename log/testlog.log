@@ -1,0 +1,8 @@
+2020-05-06 21:42:45,677 - com.amazon.test.MobileTest -INFO - Exception is : org.openqa.selenium.WebDriverException: Connection refused: connect
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T14:04:26.12Z'
+System info: host: 'ANI-PC', ip: '192.168.0.7', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_221'
+Driver info: driver.version: AndroidDriver
+2020-05-06 21:42:46,355 - com.amazon.test.MobileTest -INFO - Exception is : java.lang.IllegalArgumentException: Can not set io.appium.java_client.MobileElement field com.amazon.screens.LoginScreen.signInButton to org.openqa.selenium.remote.RemoteWebElement$$EnhancerByCGLIB$$d27c0df4
+2020-05-06 21:42:46,367 - com.amazon.test.MobileTest -INFO - Exception is : java.lang.IllegalArgumentException: Can not set io.appium.java_client.MobileElement field com.amazon.screens.HomeScreen.languageButton to org.openqa.selenium.remote.RemoteWebElement$$EnhancerByCGLIB$$d27c0df4
+2020-05-06 21:42:46,375 - com.amazon.test.MobileTest -INFO - Exception is : java.lang.IllegalArgumentException: Can not set io.appium.java_client.MobileElement field com.amazon.screens.SearchScreen.itemStatus to org.openqa.selenium.remote.RemoteWebElement$$EnhancerByCGLIB$$d27c0df4
+2020-05-06 21:42:46,383 - com.amazon.test.MobileTest -INFO - Exception is : java.lang.NullPointerException
