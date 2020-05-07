@@ -1,5 +1,5 @@
 # mobile-automation
-Automation Test Framework for Mobile Apps usin Appium-java (Android and iOS) 
+Automation Test Framework for Mobile Apps usin Appium-java (iOS and Android) 
 
 # Framework Description:
 
@@ -60,4 +60,4 @@ Right click on testng.xml file and Run as TestNG Suite.
 
 We can run individual test classes as TestNG classes.
 
-Note: Testcase is available in MobileTest.java in testclasses(src/test/java/testclasses) package.
+Note: Testcase is available in MobileTest.java in test(src/test/java/com/amazon/test) package.
