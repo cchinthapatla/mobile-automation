@@ -1,14 +1,13 @@
 package com.amazon.test;
 
 import java.io.File;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.ScreenOrientation;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import com.amazon.drivermanager.DriverManager;
 import com.amazon.screens.HomeScreen;
 import com.amazon.screens.LoginScreen;
@@ -56,7 +55,7 @@ public class MobileTest extends DriverManager{
 					+ "Amazon_shopping.apk", udid);
 			getDriver().rotate(ScreenOrientation.LANDSCAPE);
 		} catch (Exception ex) {
-			logger.info("Exception is : " + ex);
+			logger.info("Exception is : Please check your Device UDID, apk path");
 		}
 	}
 
@@ -83,7 +82,7 @@ public class MobileTest extends DriverManager{
 			loginScreen.tapLoginButton();
 			test.log(LogStatus.INFO, "Tapped on Login Button");
 		} catch (Exception ex) {
-			logger.info("Exception is : " + ex);
+			logger.error("Test Case Status is Fail due " + ex);
 		}
 	}
 
@@ -118,7 +117,7 @@ public class MobileTest extends DriverManager{
 			appiumWrapper.waitForElement();
 			homeScreen.tapsearchItem();
 		} catch (Exception ex) {
-			logger.info("Exception is : " + ex);
+			logger.error("Test Case Status is Fail due " + ex);
 		}
 	}
 
@@ -144,22 +143,21 @@ public class MobileTest extends DriverManager{
 			searchScreen.cartView();
 			test.log(LogStatus.INFO, "Tapped on Cart Button");
 			String addedItemInCartName = searchScreen.verifyingIncartAddedItem();
-			if (itemName.contains(addedItemInCartName)) {
-				test.log(LogStatus.PASS, "Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
-			}else {
-				test.log(LogStatus.PASS, "Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
-			}
 			String addedItemInCartPrice = searchScreen.verifyingIncartAddedItemPrice();
-			if (itemPrice.contains(addedItemInCartPrice)) {
-				test.log(LogStatus.FAIL, "Cart Item Price :" + addedItemInCartPrice);
-			}else {
-				test.log(LogStatus.FAIL, "Cart Item Price :" + addedItemInCartPrice);
-			}
+			Assert.assertEquals(itemName, addedItemInCartName);
+			test.log(LogStatus.PASS, "Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
+			Assert.assertEquals(itemPrice, addedItemInCartPrice);
+			test.log(LogStatus.PASS, "Added Cart Item Name : " + addedItemInCartName + " Item Name" + itemName);
 		} catch (Exception ex) {
-			logger.info("Exception is : " + ex);
+			logger.error("Test Case Status is Fail due " + ex);
 		}
 	}
 
+	/**
+	 * 
+	 * Tear Down Method
+	 * Kill the extent session and driver instance
+	 */
 	@AfterClass
 	public void tearDown() {
 		try {
